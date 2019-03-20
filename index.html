@@ -12,8 +12,8 @@
 			</div>
 			<div class="product-info">
 				<h1> {{title}} </h1>
-				<p v-if="inStock == 12"> In stock </p>
-				<p v-else-if="inStock < 12 && inStock > 0"> Few lucky pieces remaining </p>
+				<p v-if="!cartToggler"> In stock </p>
+				<!--p v-else-if="inStock < 12 && inStock > 0"> Few lucky pieces remaining </p-->
 				<p v-else> Sold out </p>
 				<ul>
 					<div v-for="(sock, index) in sockColor" 
