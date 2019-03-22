@@ -4,34 +4,14 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<div class ="nav-bar" ></div>
-	<div id = "app">
-		<div class="product">
-			<div class="product-image">
-				<img v-bind:src="image">
-			</div>
-			<div class="product-info">
-				<h1> {{title}} </h1>
-				<p v-if="!cartToggler"> In stock </p>
-				<!--p v-else-if="inStock < 12 && inStock > 0"> Few lucky pieces remaining </p-->
-				<p v-else> Sold out </p>
-				<ul>
-					<div v-for="(sock, index) in sockColor" 
-					class="color-box"
-					:style="{backgroundColor: sock.colour}"
-					@mouseover="updateImage(index)">{{sock.sockValue}}
-				</div>
-			</ul>
-			<button v-on:click="incrementCart" 
-			:disabled="cartToggler" 
-			:class="{disabledButton: cartToggler}">Add to cart</button>
-			<div class="cartVal">Cart {{cart}}</div>
-		</div>
+	<div id = "app6">
+		<!--: Before premium ensures that its passed to Component as reference. Hence any change in this prop in the parent 
+			wiill always be passed down to the Component. To test this. see the values change for Shipping Component by changing app.premium = false in Console-->
+		<yaay :premium="premium"></yaay>
+		<yaay premium="premium"></yaay>
 	</div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src = "main.js"></script>
-
 </body>
 </html>
