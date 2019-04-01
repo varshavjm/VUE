@@ -1,3 +1,4 @@
+Vue.config.devtools = true;
 Vue.component('yaay', 
 {
 	props:{
@@ -24,7 +25,6 @@ Vue.component('yaay',
 					@mouseover="updateImage(index)">{{sock.sockValue}}</div>
 				</ul>
 				<button v-on:click="incrementCart" :disabled="cartToggler" :class="{disabledButton: cartToggler}">Add to cart</button>
-				<div class="cartVal">Cart {{cart}}</div>
 		</div>
 	</div>`,
 	data: function () {
@@ -35,23 +35,26 @@ Vue.component('yaay',
 			SockURL: "http://google.com",
 			inStock: 12,
 			sockColor:[
-			{sockValue:"Sock Color: red", colour:"red", sockImage :"./assets/vmsock-red.png", quantity:0},
-			{sockValue:"Sock Color: blue", colour:"blue", sockImage :"./assets/vmsock-blue.jpg", quantity:13},
-			{sockValue:"Sock Color: green", colour:"green", sockImage :"./assets/vmsock-green.jpg", quantity:12}],
-			cart:0}
+			{sockValue:"Nivea: red", colour:"red", sockImage :"./assets/vmsock-red.png", quantity:0},
+			{sockValue:"Nike: blue", colour:"blue", sockImage :"./assets/vmsock-blue.jpg", quantity:13},
+			{sockValue:"Puma: green", colour:"green", sockImage :"./assets/vmsock-green.jpg", quantity:12}]}
 
 	},
 	methods: 
 	{
 		incrementCart: function()
 		{
-			this.cart =this.cart + 1
+			// When we click the 'Add to Cart' button, we want app.cart value to increment and for this we need to pass 
+			// this event handler to the parent i.e. app for it to know that some event was triggered at the component level.
+			// Hence we emit this event to event handler ie. 'addToCart' which triggers updateCart method of the vue instance app
+			// In simple, we listen for this event add-To-Cart and whenever click happens, it will trigger updateCart method on Vue instance 
+			//this.$parent.updateCart() 
+			this.$emit('add-to-cart', this.sockColor[this.selectedVariant].sockValue);
 		},
 
 		updateImage: function(index)
 		{
 			this.selectedVariant = index;
-			this.cart =0;
 			console.log(this.selectedVariant);
 		}
 	},
@@ -85,7 +88,17 @@ var app = new Vue ({
 
 	el: '#app6',
 	data: {
-		premium : true
+		premium : true,
+		cart : []
+	},
+
+	methods:
+	{
+		updateCart(id)
+		{
+			console.log("entered "+ this.cart);
+			this.cart.push(id)
+		}
 	}
 
 });

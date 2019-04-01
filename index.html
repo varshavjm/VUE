@@ -4,14 +4,17 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<div class ="nav-bar" ></div>
 	<div id = "app6">
+		<div class="cart">Cart {{cart}}</div>
 		<!--: Before premium ensures that its passed to Component as reference. Hence any change in this prop in the parent 
-			wiill always be passed down to the Component. To test this. see the values change for Shipping Component by changing app.premium = false in Console-->
-		<yaay :premium="premium"></yaay>
-		<yaay premium="premium"></yaay>
+			wiill always be passed down to the Component. To test this. see the values change for Shipping Component by changing app.premium = false in Console. 
+			Another note on communicating between Vue instances and components is that the instance method appearss on the right side of the assignment statement while the component method is the RHS value-->
+		<yaay :premium="premium" @add-to-cart="updateCart" ></yaay>
+		<yaay :premium="!premium" @add-to-cart="updateCart" ></yaay>
 	</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src = "main.js"></script>
 </body>
 </html>
